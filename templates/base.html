@@ -1,0 +1,113 @@
+{% load static %}
+
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <title> {% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> 
+  </head>
+  <body >
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container"> 
+            <a class="navbar-brand" href="#">Prajita</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto" id="navMenus">
+              <li class="nav-item {% ifequal request.path '/'%} active {% endifequal%}" {% if request.path == '/' %}style=" float: left; display: block;color: black;text-align: center;text-decoration: none;font-size: 17px;border-bottom: 3px solid transparent;border-bottom: 3px solid rgb(216, 210, 210);"{% endif %}>
+                <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item {% ifequal request.path '/blogs/'%} active {% endifequal%}" {% if request.path == '/blogs/' %}style=" float: left; display: block;color: black;text-align: center;text-decoration: none;font-size: 17px;border-bottom: 3px solid transparent;border-bottom: 3px solid rgb(216, 210, 210);"{% endif %}>
+                <a class="nav-link" href="{% url 'list_blog' %}">Blog</a>
+              </li>
+              <li class="nav-item {% ifequal request.path '/projects/'%} active {% endifequal%}"{% if request.path == '/projects/' %}style=" float: left; display: block;color: black;text-align: center;text-decoration: none;font-size: 17px;border-bottom: 3px solid transparent;border-bottom: 3px solid rgb(216, 210, 210);"{% endif %}>
+                  <a class="nav-link" href="{% url 'list_project' %}">Project</a>
+              </li>
+              <li class="nav-item {% ifequal request.path '/about-me/'%} active {% endifequal%}" {% if request.path == '/about-me/' %}style=" float: left; display: block;color: black;text-align: center;text-decoration: none;font-size: 17px;border-bottom: 3px solid transparent;border-bottom: 3px solid rgb(216, 210, 210);"{% endif %}>
+                  <a class="nav-link" href="{% url 'list_about' %}">About Me</a>
+              </li>
+              <li class="nav-item {% ifequal request.path '/contact-me/'%} active {% endifequal%}" {% if request.path == '/contact-me/' %}style=" float: left; display: block;color: black;text-align: center;text-decoration: none;font-size: 17px;border-bottom: 3px solid transparent;border-bottom: 3px solid rgb(216, 210, 210);"{% endif %}>
+                  <a class="nav-link" href="{% url 'list_contact' %}">Contact Me</a>
+              </li>
+              
+            </ul>
+            
+          </div>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+  
+      <div class="footer navbar-dark bg-dark">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 mt-4">
+              <button class="btn btn-primary text btn-sm" onclick="topFunction()" id="myBtn">Go To Top</button>       
+            </div>
+            <div class="col-md-6 mt-4 text-right">
+              <form action="{% url 'subscribe_form' %}" method="POST" autocomplete="off" >
+                {% csrf_token %}
+                <div class="form-group text-right" style="display:flex;justify-content: flex-end;align-items: flex-end; flex-direction: row;">
+                  <input type="email" name="email" placeholder="Enter Your Email..." style="font-size:14px;padding:3px;" id="email" name="email"> 
+                  <button class="btn btn-primary btn-sm" style="margin-left: 1%;">Subscribe</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    
+    {% block customJS %}
+
+
+    {% endblock %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+
+      
+      //Get the button
+      var mybutton = document.getElementById("myBtn");
+      
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function() {scrollFunction()};
+      
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          mybutton.style.display = "block";
+        } else {
+          mybutton.style.display = "none";
+        }
+      }
+      
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+    </script>
+
+    
+    
+  </body>
+
+</html>
+
+
+
+
+   

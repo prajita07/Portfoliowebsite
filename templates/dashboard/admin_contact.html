@@ -1,0 +1,26 @@
+{% extends 'dashboard/dashboard.html' %}
+{% block content %}
+
+
+
+<table class="table table-boarderless">
+    <thread class="border-bottom font-weight-bold">
+        <tr>
+            <td>Full Name</td>
+            <td> Job Title</td>
+            <td> Email </td>
+            <td> Message </td>
+        </tr>
+    </thread>
+    <tbody>
+        {% for contact in ContactMe %}
+        <tr>
+            <td>{{contact.Full_name}}</td>
+            <td> {{contact.Job_title}}</td>
+            <td>{{contact.email}} </td>
+            <td>{{contact.message}}</td> 
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

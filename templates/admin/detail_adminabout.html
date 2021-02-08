@@ -1,0 +1,24 @@
+{% extends 'dashboard/dashboard.html' %}
+{% load static%}
+{% block content %}
+<h2>Skills Details</h2>
+<div class="row">
+    {% if skill %}
+    <div class="col-md-12 col-xl-12 col-sm-12 col-xs-12">
+        <img class="card-img-top" src="/uplaods/{{skill.image_file}}" alt="Card image" style="width:100%;height:500px;">
+        <div class="card-img-overlay" style="display: flex; justify-content: center;align-items: center;flex-direction: column; color:#fff;">
+            <h6 class="card-title">{{skill.Job_title}}</h6>
+            <p style=" position: absolute;bottom: 8px;right: 16px;font-size: 10px;">{{skill.name}} </p>
+        </div>
+        <a href="{% url 'update_adminabout' skill.id %}" class="btn btn-primary btn-sm ml-5">Edit</a>
+        <a href="{% url 'admin_delete_about' skill.id %}" class="btn btn-danger btn-sm ml-5">Delete</a>
+        
+    </div>
+    {% else %}
+
+        * Please select a skill
+
+    {% endif %}
+</div>
+
+{% endblock %}

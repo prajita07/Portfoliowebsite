@@ -1,0 +1,21 @@
+{% extends 'dashboard/dashboard.html' %}
+{% load static%}
+{% block content %}
+<h1>Blog Details</h1>
+{% if blog %}
+<div class="row">
+    <div class="col-md-12 col-xl-12 col-sm-12 col-xs-12">
+        <h4 class="card-title">{{blog.title}}</h4>
+        <p>{{blog.category}}</p>
+        <img class="card-img-top" src="/uplaods/{{blog.image_file}}" alt="Card image" style="width:100%">
+        <p>{{blog.author}}</p>
+        <p>{{blog.description}}</p>
+        <a href="{% url 'update_adminblog' blog.id%}" class="btn btn-primary btn-sm ml-5">Edit</a>
+        <a href="{% url 'admin_delete_blog' blog.id%}" class="btn btn-danger btn-sm ml-5">Delete</a>
+        
+        
+
+    </div>
+</div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'dashboard/dashboard.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12 col-xl-12 col-sm-12 col-xs-12 ">
+      <h3 class="mt-5 mb-4" style=" font-size: xx-large; font:bolder"> Contact Me</h3>
+    </div> 
+<table class="table table-boarderless">
+    <thread class="border-bottom font-weight-bold">
+        <tr>
+            <td>Full Name</td>
+            <td> Job Title</td>
+            <td> Email </td>
+            <td> Message </td>
+        </tr>
+    </thread>
+    <tbody>
+        {% for contact in ContactMe %}
+        <tr>
+            <td>{{contact.Full_name}}</td>
+            <td> {{contact.Job_title}}</td>
+            <td>{{contact.email}} </td>
+            <td>{{contact.message}}</td> 
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

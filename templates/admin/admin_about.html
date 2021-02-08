@@ -1,0 +1,402 @@
+{% extends 'dashboard/dashboard.html' %}
+{% load static%}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/about_css/style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> -->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+<style>
+
+
+
+.timeline {
+  position: relative;
+  width: 660px;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 1em 0;
+  list-style-type: none;
+}
+
+.timeline:before {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  content: ' ';
+  display: block;
+  width: 6px;
+  height: 100%;
+  margin-left: -3px;
+  background: rgb(80,80,80);
+  background: -moz-linear-gradient(top, rgba(80,80,80,0) 0%, rgb(80,80,80) 8%, rgb(80,80,80) 92%, rgba(80,80,80,0) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(30,87,153,1)), color-stop(100%,rgba(125,185,232,1)));
+  background: -webkit-linear-gradient(top, rgba(80,80,80,0) 0%, rgb(80,80,80) 8%, rgb(80,80,80) 92%, rgba(80,80,80,0) 100%);
+  background: -o-linear-gradient(top, rgba(80,80,80,0) 0%, rgb(80,80,80) 8%, rgb(80,80,80) 92%, rgba(80,80,80,0) 100%);
+  background: -ms-linear-gradient(top, rgba(80,80,80,0) 0%, rgb(80,80,80) 8%, rgb(80,80,80) 92%, rgba(80,80,80,0) 100%);
+  background: linear-gradient(to bottom, rgba(80,80,80,0) 0%, rgb(80,80,80) 8%, rgb(80,80,80) 92%, rgba(80,80,80,0) 100%);
+  
+  z-index: 5;
+}
+
+.timeline li {
+  padding: 1em 0;
+}
+
+.timeline li:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.direction-l {
+  position: relative;
+  width: 300px;
+  float: left;
+  text-align: right;
+}
+
+.direction-r {
+  position: relative;
+  width: 300px;
+  float: right;
+}
+
+.flag-wrapper {
+  position: relative;
+  display: inline-block;
+  
+  text-align: center;
+}
+
+.flag {
+  position: relative;
+  display: inline;
+  background: rgb(248,248,248);
+  padding: 6px 10px;
+  border-radius: 5px;
+  
+  font-weight: 600;
+  text-align: left;
+}
+
+.direction-l .flag {
+  -webkit-box-shadow: -1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+  -moz-box-shadow: -1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+  box-shadow: -1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+}
+
+.direction-r .flag {
+  -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+  -moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.15);
+}
+
+.direction-l .flag:before,
+.direction-r .flag:before {
+  position: absolute;
+  top: 50%;
+  right: -40px;
+  content: ' ';
+  display: block;
+  width: 12px;
+  height: 12px;
+  margin-top: -10px;
+  background: #fff;
+  border-radius: 10px;
+  border: 4px solid rgb(255,80,80);
+  z-index: 10;
+}
+
+.direction-r .flag:before {
+  left: -40px;
+}
+
+.direction-l .flag:after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  height: 0;
+  width: 0;
+  margin-top: -8px;
+  border: solid transparent;
+  border-left-color: rgb(248,248,248);
+  border-width: 8px;
+  pointer-events: none;
+}
+
+.direction-r .flag:after {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  height: 0;
+  width: 0;
+  margin-top: -8px;
+  border: solid transparent;
+  border-right-color: rgb(248,248,248);
+  border-width: 8px;
+  pointer-events: none;
+}
+
+.time-wrapper {
+  display: inline;
+  
+  line-height: 1em;
+  font-size: 0.66666em;
+  color: rgb(250,80,80);
+  vertical-align: middle;
+}
+
+.direction-l .time-wrapper {
+  float: left;
+}
+
+.direction-r .time-wrapper {
+  float: right;
+}
+
+.time {
+  display: inline-block;
+  padding: 4px 6px;
+  background: rgb(248,248,248);
+}
+
+.desc {
+  margin: 1em 0.75em 0 0;
+  
+  font-size: 0.77777em;
+  font-style: italic;
+  line-height: 1.5em;
+}
+
+.direction-r .desc {
+  margin: 1em 0 0 0.75em;
+}
+
+/* ================ Timeline Media Queries ================ */
+
+@media screen and (max-width: 660px) {
+
+.timeline {
+ 	width: 100%;
+	padding: 4em 0 1em 0;
+}
+
+.timeline li {
+	padding: 2em 0;
+}
+
+.direction-l,
+.direction-r {
+	float: none;
+	width: 100%;
+
+	text-align: center;
+}
+
+.flag-wrapper {
+	text-align: center;
+}
+
+.flag {
+	background: rgb(255,255,255);
+	z-index: 15;
+}
+
+.direction-l .flag:before,
+.direction-r .flag:before {
+  position: absolute;
+  top: -30px;
+	left: 50%;
+	content: ' ';
+	display: block;
+	width: 12px;
+	height: 12px;
+	margin-left: -9px;
+	background: #fff;
+	border-radius: 10px;
+	border: 4px solid rgb(255,80,80);
+	z-index: 10;
+}
+
+.direction-l .flag:after,
+.direction-r .flag:after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: -8px;
+	height: 0;
+	width: 0;
+	margin-left: -8px;
+	border: solid transparent;
+	border-bottom-color: rgb(255,255,255);
+	border-width: 8px;
+	pointer-events: none;
+}
+
+.time-wrapper {
+	display: block;
+	position: relative;
+	margin: 4px 0 0 0;
+	z-index: 14;
+}
+
+.direction-l .time-wrapper {
+	float: none;
+}
+
+.direction-r .time-wrapper {
+	float: none;
+}
+
+.desc {
+	position: relative;
+	margin: 1em 0 0 0;
+	padding: 1em;
+	background: rgb(245,245,245);
+	-webkit-box-shadow: 0 0 1px rgba(0,0,0,0.20);
+	-moz-box-shadow: 0 0 1px rgba(0,0,0,0.20);
+	box-shadow: 0 0 1px rgba(0,0,0,0.20);
+	
+  z-index: 15;
+}
+
+.direction-l .desc,
+.direction-r .desc {
+	position: relative;
+	margin: 1em 1em 0 1em;
+	padding: 1em;
+	
+  z-index: 15;
+}
+
+}
+
+@media screen and (min-width: 400px) and (max-width: 660px) {
+
+.direction-l .desc,
+.direction-r .desc {
+	margin: 1em 4em 0 4em;
+}
+
+}
+</style>
+
+<div class="row">
+    <div class="col-md-12 col-xl-12 col-sm-12 col-xs-12 ">
+        <h3 class="mt-5 mb-4">About Me </h3>
+    </div>  
+
+</div>
+      
+  <div class="row">
+    {% if about %}
+      <div class="col-md-6 col-xl-6" style="margin-right: 0 !important;margin-left: 0 !important; padding-right: 0 !important;">
+        <img class="card-img-top" src="/uplaods/{{about.image_file}}" alt="Card image" style="width:100%;height:auto;">
+      </div>
+      <div class="col-md-6 col-xl-6 text-white bg-info" style="margin: 0 !important; padding: 0 !important;">
+          <h3 class="text-center mt-5 b text-capitalize">{{about.name}}</h3>
+          <h5 class="text-center mt-4 mb-4">{{about.Job_title}}</h5>
+          <p class="pl-5 pr-5 text-justify">{{about.description}}</p>
+          <div class="d-flex justify-content-between mt-4">
+            <div class="socials d-flex justify-content-between pl-5 " style="font-size: 30px;">
+              <a href="#" class="fa fa-facebook text-white mr-4 " style="text-decoration: none;"></a>
+              <a href="#" class="fa fa-instagram text-white mr-4" style="text-decoration: none;"></a>
+              <a href="#" class="fa fa-linkedin text-white mr-4" style="text-decoration: none;"></a>
+              <a href="#" class="fa fa-envelopen  text-white mr-4" style="text-decoration: none;"></a>
+              
+            </div>
+            <div >
+                <a href="" class="btn btn-primary btn-sm mr-5 text-white">More...</a>
+            </div>
+          </div>
+           
+      </div>
+
+      {% endif %}
+
+
+  </div>
+<div class="row">
+  <div class="col-md-12 col-xl-12 col-sm-12 col-xs-12 ">
+    <h3 class="mt-5 mb-4">Skills and Expertise</h3>
+  </div>
+
+  {% if skills %}
+  {% for skill in skills %}
+  <div class="col-md-3 col-xl-3 col-sm-6 col-xs-12 mb-5">
+    <div class="card img-fluid">
+        <a href="{% url 'detail_adminabout' skills.id %}"></a>
+        <img class="card-img-top" src="/uplaods/{{skill.image_file}}" alt="Card image" style="width:100%; height:200px;">
+        <div class="card-img-overlay" style="display: flex; justify-content: center;align-items: center;flex-direction: column; color:#fff;">
+            <h6 class="card-title">{{skill.Job_title}}</h6>
+            <p style=" position: absolute;bottom: 8px;right: 16px;font-size: 10px;">{{about_list.name}} </p>
+        </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  {% else %}
+        <div class="col-md-3 col-xl-3 col-sm-6 col-xs-12 mb-5">
+          <p class="text-danger text-center">* No result found!</p>
+        </div>
+    {% endif %}
+</div>
+{% if timelines %}
+<div class="col-md-12 col-xl-12 col-sm-12 col-xs-12 mb-4">
+    <h3 class="mt-5 mb-4">Experiences</h3>
+    
+
+    <!-- The Timeline -->
+
+<ul class="timeline">
+<a href="{% url 'add_experiences' %}" class="btn btn-primary btn-sm ml-5"> New Experiences </a>
+{% for tm in timelines %}
+<div class="col-md-3 col-xl-3 col-sm-6 col-xs-12 mb-5">
+<a href="{% url 'update_adminExperiences' tm.1.id %}"> 
+    
+{% if tm.0 == 0 %}
+
+<li>
+		<div class="direction-l">
+      
+			<div class="flag-wrapper">
+				<span class="flag"><span class="time">{{tm.1.date}}</span></span>
+			</div>
+			<div class="desc">
+        
+        <h4 style="font-size: 14px;">{{tm.1.title}}</h4>
+        <p class="text-dark">{{tm.1.description}}</p>
+      </div>
+		</div>
+</li>
+{% else %}
+
+<li>
+  <div class="direction-r">
+    <div class="flag-wrapper">
+      <span class="flag"><span class="time">{{tm.1.date}}</span></span>
+    </div>
+    <div class="desc">
+      
+      <h4 style="font-size: 14px;">{{tm.1.title}}</h4>
+      <p class="text-dark">{{tm.1.description}}</p>
+    </div>
+ 
+  </div>
+</li>
+{% endif %}
+</a>
+</div>
+{% endfor %}
+	
+</ul> 
+
+</div>
+{% endif %}
+</div>
+{% endblock %}

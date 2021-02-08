@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12 col-xl-12 col-sm-12 col-xs-12 ">
+    <h3 class="mt-5 mb-4"> Blogs</h3>
+    <form action="{% url 'search_blog' %}" method="POST">
+      {% csrf_token  %}
+      <div class="form-group text-right" style="display:flex;justify-content: flex-end;align-items: flex-end; flex-direction: row;">
+          <input type="search" name="search" placeholder="Search blogs..." style="font-size:14px;padding:3px;">
+          <input class="btn btn-primary btn-sm" style="margin-left: 1%;" type="submit" value="Search">
+      </div>
+    </form>
+
+
+      <form method="POST" action="{% url 'list_blog' %}" class="text-right mt-3" id="filter-form">
+        {% csrf_token  %}
+        <div class="form-group pt-3" style="display: flex; justify-content: flex-end;align-items: center;" >
+          <label for="blog-category" class="mt-1">Filter Blogs  By </label>
+          <select name="blog-category" id="blog-category" style="width:12vw;padding:3px; margin-left: 5px;">
+            <option value="default">Select a Category</option>
+            {% if categories %} 
+              {% for cat in categories %}
+                  <option value="{{cat.id}}" class="text-capitalize" 
+                  {% if cat.id == blogcat.id %}
+                  selected
+                  {% endif %}
+                  
+                  >{{cat.category_name}}</option>
+              {% endfor %}
+
+
+            {% endif %}
+          </select> 
+         
+        </div>
+      </form>  
+      <form method="POST" action="{% url 'list_blog' %}" class="text-right mt-3" id="filter-form">
+      <a href="{% url 'add_blog' %} " class="btn btn-primary btn-sm ml-5" >New Blog</a>  
+      </form>
+      
+  </div>
+</div>
+{% if results %}
+  <div class="row">
+      <div class="col-md-12 col-xl-12 col-sm-12 col-xs-12">
+          <p class="text-dark  mb-5 ">List of blogs that matched with <span class="text-primary">'{{search}}'</span>...</p>
+      </div>
+
+      {% for blog in results %}
+      <div class="col-md-3 col-xl-3 col-sm-6 col-xs-12 mb-5">
+        <div class="card img-fluid">
+          <img class="card-img-top" src="/uplaods/{{blog.image_file}}" alt="Card image" style="width:100%; height:200px;">
+            <div class="card-img-overlay" style="display: flex; justify-content: center;align-items: center;flex-direction: column; color:#fff;">
+              <h4 class="card-title">{{blog.title}}</h4>
+              <p style=" position: absolute;bottom: 8px;right: 16px;font-size: 10px;">BC</p>
+            </div>
+        </div>
+    </div>
+
+      {% endfor %}
+  </div>
+{% else %}
+{% if filtered_blogs %}
+
+    <div class="row">
+      <div class="col-md-12 col-xl-12">
+          <p class="text-dark mb-4">
+            List of blogs under <span class="text-primary text-capitalize">'{{blogcat.category_name}}' ... </span>
+          </p>
+      </div>
+      {% for blog in filtered_blogs %}
+      <div class="col-md-3 col-xl-3 col-sm-6 col-xs-12 mb-5">
+        <div class="card img-fluid">
+          <img class="card-img-top" src="/uplaods/{{blog.image_file}}" alt="Card image" style="width:100%; height:200px;">
+            <div class="card-img-overlay" style="display: flex; justify-content: center;align-items: center;flex-direction: column; color:#fff;">
+              <h4 class="card-title">{{blog.title}}</h4>
+              <p style=" position: absolute;bottom: 8px;right: 16px;font-size: 10px;">BC</p>
+            </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+{% else %}
+  
+<div class="row">
+  <div class="col-md-12 col-xl-12 col-sm-12 col-xs-12 ">
+    <h3 class="mt-5 mb-4">New Blogs</h3>
+  </div>
+
+  {% if new_blogs %}
+  {% for blog in new_blogs%}
+  <div class="col-md-3 col-xl-3 col-sm-6 col-xs-12 mb-5">
+    <div class="card img-fluid">
+          <img class="card-img-top" src="/uplaods/{{blog.image_file}}" alt="Card image" style="width:100%; height:200px;">
+      <div class="card-img-overlay" style="display: flex; justify-content: center;align-items: center;flex-direction: column; color:#fff;">
+        <h6 class="card-title text-center">{{blog.title}}</h6>
+        <p style=" position: absolute;bottom: 8px;right: 16px;font-size: 10px;">{{blog.author}} </p>
+      </div>
+    </div>
+  </div>
+    {% endfor %}
+
+    {% else %}
+        <div class="col-md-3 col-xl-3 col-sm-6 col-xs-12 mb-5">
+          <p class="text-danger text-center">* No new blog found!</p>
+        </div>
+    {% endif %}
+</div>
+<div class="row">
+  <div class="col-md-12 col-xl-12 col-sm-12 col-xs-12 ">
+    <h3 class="mt-5 mb-4">All Blogs</h3>
+  </div>
+{% if blogs %}
+{% for blog in blogs %}
+<div class="col-md-3 col-xl-3 col-sm-6 col-xs-12 mb-5">
+    <div class="card img-fluid">
+      <img class="card-img-top" src="/uplaods/{{blog.image_file}}" alt="Card image" style="width:100%; height:200px;">
+        <div class="card-img-overlay" style="display: flex; justify-content: center;align-items: center;flex-direction: column; color:#fff;">
+          <h4 class="card-title text-center">{{blog.title}}</h4>
+          <p style=" position: absolute;bottom: 8px;right: 16px;font-size: 10px;">BC</p>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else  %}
+<div class="col-md-3 col-xl-3 col-sm-6 col-xs-12 mb-5">
+  <p class="text-danger text-center">* No blog found!</p>
+</div>
+{% endif %}
+</div>
+{% endif %}
+
+{% endif %}
+
+<!-- {% if filtered_blogs %}
+    <div class="row">
+      {% for blog in filtered_blogs %}
+      <div class="col-md-3 col-xl-3 col-sm-6 col-xs-12 mb-5">
+        <div class="card img-fluid">
+          <img class="card-img-top" src="/uplaods/{{blog.image_file}}" alt="Card image" style="width:100%">
+            <div class="card-img-overlay" style="display: flex; justify-content: center;align-items: center;flex-direction: column; color:#fff;">
+              <h4 class="card-title">{{blog.title}}</h4>
+              <p style=" position: absolute;bottom: 8px;right: 16px;font-size: 10px;">BC</p>
+            </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% endif %} -->
+
+
+{% endblock %}
+
+
+{% block customJS %}
+<script>
+    document.getElementById("blog-category").addEventListener('change',()=> {
+        if(document.getElementById('blog-category').value!='default')  {
+            document.getElementById("filter-form").submit();
+        }
+    });
+</script>
+
+{% endblock %}

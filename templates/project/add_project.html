@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="col-md-12 col-xl-12 col-sm-12 col-xs-12 ">
+    <h3>Add New Project</h3>
+        <form action="" method="POST" autocomplete="off" enctype="multipart/form-data" >
+            {% csrf_token %}
+            {{form.title}}
+            {{form.image_file}}
+            {{form.owner}}
+            {{form.description}}
+            {{form.is_popular}}
+            {{form.category}}
+            
+                <div class="row">
+                    <div >
+                        <button type="submit" class="btn btn-success btn-block btn-lg"> <i class="fas fa-database"></i>Submit</button>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{% url 'list_project' %}" class = "btn btn-secondary btn-block btn-lg">
+                            <i class="fas fa-stream"></i> Back To List
+                        </a>
+                    </div>
+
+                </div>
+            
+        </form>
+        {% comment %} <div class="banner-text  mt-2 mb-2" style="width:100%;height:auto;max-height: 70vh;">
+            <h3 style="font-size:25px"> Add New Project</h3>
+            <form action="{% url 'add_project' %}" method="POST" autocomplete="off" enctype="multipart/form-data" >
+            {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control" id="title" name = "title" label= "Title" required>
+                </div>
+                <div class="form-group">
+                    <select name="project-category" id="project-category" >
+                    <option value="default">Select a Category</option>
+                    {% if categories %} 
+                    {% for cat in categories %}
+                        <option value="{{cat.id}}" class="text-capitalize" 
+                        {% if cat.id == projectcat.id %}
+                        selected
+                        {% endif %}
+                        
+                        >{{cat.category_name}}</option>
+                    {% endfor %}
+
+
+                    {% endif %}
+                    </select> 
+                </div>
+                    <div class="form-group">
+                    <input type="file" accept=".jpg,.gif,.png" id="image_file" name = "image_file" label ="Image" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="owner" name = "owner"  label ="Owner" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" id="description" name = "description" rows="3" required></textarea>
+                </div>
+
+                <button type="submit" value="Submit" class="btn btn-danger btn-lg btn-block">Add Project</button>
+        
+        
+            </form>
+        </div> {% endcomment %}
+    </div>
+</div>
+{% endblock %}

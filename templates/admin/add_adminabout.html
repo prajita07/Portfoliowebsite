@@ -1,0 +1,30 @@
+{% extends 'dashboard/dashboard.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="col-md-12 col-xl-12 col-sm-12 col-xs-12 ">
+   <br> <h3 style="font: bolder; font-size: xx-large;">Add Skills</h3><br>
+        <form action="" method="POST" autocomplete="off" enctype="multipart/form-data" >
+            {% csrf_token %}
+            {{form.as_p}}
+            <div class="form-group text-center"> <br>
+                <button type="submit" class="btn btn-success text-center text-capitalize mt-5" style="width: 15%; margin-top: 2%; margin-right: 90%; padding: 1%;"> Add Skill</button>
+                <a href="{% url 'list_aboutadmin' %}" class = "btn btn-success btn-block btn-lg" style="width: 15%; margin-top:-4%; margin-left: 70%; padding: -3%;">
+                    Back To List
+                </a>
+               <br><br> 
+            </div>
+          
+             
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block customJS %}
+<script>
+    document.getElementById("id_name").classList.add("form-control");
+    document.getElementById("id_image_file").classList.add("form-control");
+    
+</script>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'dashboard/dashboard.html' %}
+{% load static%}
+{% block content %}
+<h1>Project Details</h1>
+{% if project %}
+<div class="row" style="margin-bottom: 50px;">
+    <div class="col-md-12 col-xl-12 col-sm-12 col-xs-12">
+        <h4 class="card-title">{{project.title}}</h4>
+        <p>{{project.category}}</p>
+        <img class="card-img-top" src="/uplaods/{{project.image_file}}" alt="Card image" style="width:100%">
+        <p>{{project.author}}</p>
+        <p>{{project.description}}</p>
+        <a href="{% url 'update_adminproject' project.id%}" class="btn btn-primary btn-sm ml-5">Edit</a>
+        <a href="{% url 'admin_delete_project' project.id%}" class="btn btn-danger btn-sm ml-5">Delete</a>
+        
+
+    </div>
+</div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'dashboard/dashboard.html' %}
+{% load static%}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="col-md-12 col-xl-12 col-sm-12 col-xs-12 ">
+    <h3 style="font: bolder; font-size: xx-large;">Add New Blog</h3>
+        <form action="" method="POST" autocomplete="off" enctype="multipart/form-data" >
+            {% csrf_token %}
+            {{form.title}}
+            {{form.image_file}}
+            {{form.author}}
+            {{form.description}}
+            {{form.is_popular}}
+            {{form.category}}
+            
+                <div class="row">
+                    <div >
+                        <button type="submit" class="btn btn-success btn-block btn-lg"style="width: 10%; margin-top: 10%;padding: -1%;"> Submit</button>
+                        <a href="{% url 'list_adminblog' %}" class = "btn btn-success btn-block btn-lg" style="width: 15%; margin-top:-4%; margin-left: 60%; padding: -1%;">
+                            Back To List
+                        </a>
+                    </div>
+
+                </div>
+            
+        </form>
+    </div>
+</div>
+{% endblock %}
