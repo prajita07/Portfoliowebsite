@@ -12,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '^h+i*3(o2a_c-q7rb5#b^0dz=86!+(3i*2oc=z6$@lr12vwzm&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://www.pythonanywhere.com",]
 
 LOGIN_URL = 'loginuser'
 # LOGIN_REDIRECT = ''
@@ -118,8 +118,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT= os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'portofolio/static'),
 ]
 
 MEDIA_URL = '/uplaods/'
